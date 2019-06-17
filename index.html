@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en-us">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+    <title>Animals Just Like Us | GifTastic</title>
+
+    <!-- reset css link -->
+    <link rel="stylesheet" type="text/css" href="assets/css/reset.css">
+
+    <!--google fonts-->
+    <link href="https://fonts.googleapis.com/css?family=Karla|Montserrat|Space+Mono&display=swap" rel="stylesheet">
+
+    <!-- bootstrap link -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+
+    <!-- style.css -->
+    <link rel="stylesheet" type="text/css" href="assets/css/style.css">
+
+</head>
+
+<body>
+
+    <div class="container-fluid"><br>
+
+        <header class="jumbotron text-center">
+            <h1 class="text-uppercase">Animals Just Like Us</h1>
+        </header>
+
+
+        <!-- Rendered buttons will go here  -->
+        <div class="row pb-4">
+            <div class="col-md-12 rainbow" id="buttons-view"></div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-12">
+                <form class="form-inline" id="animal-form">
+                    <div class="row align-left">
+                        <div class="col">
+                            <label for="animal-input"></label>
+                            <input type="text" id="animal-input" placeholder="Add an animal">
+                        </div>
+
+                        <!-- Button triggers new animals to be added -->
+                        <input id="add-animal" button type="submit" class="btn btn-outline-info" value="Submit">
+
+                    </div>
+                </form>
+            </div>
+        </div>
+        <!-- Gifs will go here -->
+        <div id="animals-view" data-state="still"></div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    <script type="text/javascript" src="assets/javascript/app.js"></script>
+
+
+</body>
+
+</html>
