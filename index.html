@@ -38,6 +38,7 @@
             messagingSenderId: "904494310957",
             appId: "1:904494310957:web:f844b97c354d9a11",
             clientId: "904494310957-snk9h5ndi37tl0h4emhho96llkpm10v7.apps.googleusercontent.com",
+            api_key: 'AIzaSyBkCA6UT776r0tRv_oynJX5g4T8xZd7PIE',
             scopes: ["email", "profile",
                 "https://www.googleapis.com/auth/calendar"
             ],
@@ -61,17 +62,17 @@
                     document.getElementById('loader').style.display = 'none';
                 }
             },
-            // Will use popup for IDP Providers sign-in flow instead of the default, redirect.
-            signInFlow: 'popup',
-            signInSuccessUrl: 'https://kamueller2.github.io/test-app/',
-            signInOptions: [
-                // Leave the lines as is for the providers you want to offer your users.
-                firebase.auth.GoogleAuthProvider.PROVIDER_ID,
-            ],
-            // Terms of service url.
-            tosUrl: '<your-tos-url>',
-            // Privacy policy url.
-            privacyPolicyUrl: '<your-privacy-policy-url>'
+            // // Will use popup for IDP Providers sign-in flow instead of the default, redirect.
+            // signInFlow: 'popup',
+            // signInSuccessUrl: 'https://kamueller2.github.io/test-app/',
+            // signInOptions: [
+            //     // Leave the lines as is for the providers you want to offer your users.
+            //     firebase.auth.GoogleAuthProvider.PROVIDER_ID,
+            // ],
+            // // Terms of service url.
+            // tosUrl: '<your-tos-url>',
+            // // Privacy policy url.
+            // privacyPolicyUrl: '<your-privacy-policy-url>'
         };
         ui.start('#firebaseui-auth-container', uiConfig);
         // This function will trigger when there is a login event
