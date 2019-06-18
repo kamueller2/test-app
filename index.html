@@ -64,7 +64,6 @@
                 signInSuccessWithAuthResult: function(authResult, redirectUrl) {
                     // User successfully signed in.
                     // Return type determines whether we continue the redirect automatically
-                    // or whether we leave that to developer to handle.
                     return true;
                 },
                 uiShown: function() {
@@ -98,9 +97,8 @@
                     // script.src = "https://apis.google.com/js/platform.js?onload=init"
 
 
-                // Once the Google API Client is loaded, you can run your code
-                script.onload = function(e) {
-                    // Initialize the Google API Client with the config object
+                function initClient() {
+
                     gapi.client.init({
                             apiKey: firebaseConfig.apiKey,
                             clientId: firebaseConfig.clientID,
@@ -116,7 +114,26 @@
                                 firebase.auth().signOut(); // Something went wrong, sign out
                             }
                         });
-                };
+                }
+                // Once the Google API Client is loaded, you can run your code
+                // script.onload = function(e) {
+                //     // Initialize the Google API Client with the config object
+                //     gapi.client.init({
+                //             apiKey: firebaseConfig.apiKey,
+                //             clientId: firebaseConfig.clientID,
+                //             discoveryDocs: firebaseConfig.discoveryDocs,
+                //             scope: firebaseConfig.scopes.join(" ")
+                //         })
+                //         // Loading is finished, so start the app
+                //         .then(function() {
+                //             // Make sure the Google API Client is properly signed in
+                //             if (gapi.auth2.getAuthInstance().isSignedIn.get()) {
+                //                 startApp(user);
+                //             } else {
+                //                 firebase.auth().signOut(); // Something went wrong, sign out
+                //             }
+                //         });
+                // };
                 // Add to the document
                 document.getElementsByTagName("head")[0].appendChild(script);
             }
