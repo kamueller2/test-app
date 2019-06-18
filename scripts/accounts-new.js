@@ -96,7 +96,7 @@ firebase.auth().onAuthStateChanged(person => {
 
 const firebaseAuthObj = firebase.auth;
 
-firebase.initializeApp(firebaseConfig);
+// firebase.initializeApp(firebaseConfig);
 
 const ui = new firebaseui.auth.AuthUI(firebase.auth());
 
