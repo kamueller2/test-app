@@ -5,84 +5,26 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-
-    <meta name="google-signin-client_id" content="904494310957-e7346trdkivmsciaq9s6f6lilpg8ss8f.apps.googleusercontent.com">
     <title>Dear Time</title>
-    <link href="https://cdn.jsdelivr.net/npm/pretty-checkbox@3.0/dist/pretty-checkbox.min.css" rel="stylesheet"> </link>
+    <link href="assets/style.css" rel="stylesheet"></link>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.2/animate.min.css"></link>
-    <link href="../assets/style.css" rel="stylesheet"></link>
-    <script src="https://www.gstatic.com/firebasejs/6.2.0/firebase-app.js"></script>
-    <script src="https://cdn.firebase.com/libs/firebaseui/3.5.2/firebaseui.js"></script>
-    <link type="text/css" rel="stylesheet" href="https://cdn.firebase.com/libs/firebaseui/3.5.2/firebaseui.css" />
+
 </head>
 
 <body>
 
-    <div id="allTheSignUp">
-        <img src="../assets/images/logo.png" id="logo">
+    <body>
+        <button class="signIn" onclick="location.href='pages/signIn.html'">Sign in</button>
+        <div class="background"></div>
+        <h1 class="animated slideInUp fast">Dear Time</h1>
 
-        <h2 class="animated slideInUp fast">Tell us about you</h2>
+        <h3 class="animated slideInUp fast columnForIntros intro">Are you sometimes busy with what you are doing and lost sense of time? After you realize you have an event to go, you are like an hour late. Sometimes it doesn’t matter, but what if that’s an interview or a meeting?
+            <br>We help you to manage your time. We will let you know when you definitely need to get out depends on the traffic to get to the event on time.
+        </h3>
 
-        <input type="text" class="animated fadeIn slow" id="name" placeholder="Your First Name">
-        <input type="tel" class="animated fadeIn slow" id="number" placeholder="Your Phone Number 0000000000">
-        <input type="email" class="animated fadeIn slow" id="email" placeholder="Email xxxx@xxx.com">
-        <input type="password" class="animated fadeIn slow" id="password" placeholder="Password">
+        <button class="animated fadeIn slow delay-1s" onclick="location.href='pages/signUp.html'">  Get Started</button>
 
-        <section class="animated fadeIn slow">
-            <h4>Usually how long do you prefer to arrive before your events?</h4>
-            <input type="text" id="preferredTime" placeholder="15"><label>minutes</label>
-
-            <h4>How do you prefer us to notify you?</h4>
-
-            <!-- checkbox for text, which is mendatory -->
-
-            <div class="pretty p-default p-fill">
-                <input type="checkbox" id="textChecked" checked/>
-                <div class="state p-sucess">
-                    <label>Text</label><span> (Required)</span>
-                </div>
-            </div>
-
-            <!-- checkbox for call -->
-            <div class="pretty p-default p-fill">
-                <input type="checkbox" id="callChecked" />
-                <div class="state p-sucess">
-                    <label>Call</label>
-                </div>
-            </div>
-            <br>
-
-
-        </section>
-
-        <section>
-
-            <!-- google login -->
-
-            <div id="firebaseui-auth-container">
-                <div id="my-signin2"></div>
-                <div id="loader"></div>
-            </div>
-        </section>
-
-
-
-
-        <!-- This is where you sync the Google Doc -->
-        <button class="calendars" id="googleCalendar">link your Google Calendar</button>
-        <!-- After users sync the calendar, button Ready to go shows up -->
-        <button id="signUp">Ready to Go!</button>
-
-        </section>
-
-    </div>
-    <div class="background"></div>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/6.2.0/firebase-app.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/6.2.0/firebase-database.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/6.2.0/firebase-auth.js"></script>
-
-    <script src="../scripts/account.js"></script>
+    </body>
 
 </body>
 
