@@ -73,18 +73,38 @@
                     document.getElementById('loader').style.display = 'none';
                 }
             },
-            //     // Will use popup for IDP Providers sign-in flow instead of the default, redirect.
-            //     signInFlow: 'popup',
-            //     signInSuccessUrl: 'https://kamueller2.github.io/test-app/',
-            //     signInOptions: [
-            //         // Leave the lines as is for the providers you want to offer your users.
-            //         firebase.auth.GoogleAuthProvider.PROVIDER_ID,
-            //     ],
-            //     // Terms of service url.
-            //     tosUrl: '<your-tos-url>',
-            //     // Privacy policy url.
-            //     privacyPolicyUrl: '<your-privacy-policy-url>'
         };
+
+        function initClient() {
+
+            gapi.client.init({
+                    apiKey: firebaseConfig.apiKey,
+                    clientId: firebaseConfig.clientID,
+                    discoveryDocs: firebaseConfig.discoveryDocs,
+                    scope: firebaseConfig.scopes.join(" ")
+                })
+                // Loading is finished, so start the app
+                .then(function() {
+                    // Make sure the Google API Client is properly signed in
+                    if (gapi.auth2.getAuthInstance().isSignedIn.get()) {
+                        startApp(user);
+                    } else {
+                        firebase.auth().signOut(); // Something went wrong, sign out
+                    }
+                });
+        }
+        //     // Will use popup for IDP Providers sign-in flow instead of the default, redirect.
+        //     signInFlow: 'popup',
+        //     signInSuccessUrl: 'https://kamueller2.github.io/test-app/',
+        //     signInOptions: [
+        //         // Leave the lines as is for the providers you want to offer your users.
+        //         firebase.auth.GoogleAuthProvider.PROVIDER_ID,
+        //     ],
+        //     // Terms of service url.
+        //     tosUrl: '<your-tos-url>',
+        //     // Privacy policy url.
+        //     privacyPolicyUrl: '<your-privacy-policy-url>'
+
         ui.start('#firebaseui-auth-container', uiConfig);
         // This function will trigger when there is a login event
         firebase.auth().onAuthStateChanged(function(user) {
@@ -98,24 +118,6 @@
                 // script.src = "https://apis.google.com/js/platform.js?onload=init"
 
 
-                function initClient() {
-
-                    gapi.client.init({
-                            apiKey: firebaseConfig.apiKey,
-                            clientId: firebaseConfig.clientID,
-                            discoveryDocs: firebaseConfig.discoveryDocs,
-                            scope: firebaseConfig.scopes.join(" ")
-                        })
-                        // Loading is finished, so start the app
-                        .then(function() {
-                            // Make sure the Google API Client is properly signed in
-                            if (gapi.auth2.getAuthInstance().isSignedIn.get()) {
-                                startApp(user);
-                            } else {
-                                firebase.auth().signOut(); // Something went wrong, sign out
-                            }
-                        });
-                }
                 // Once the Google API Client is loaded, you can run your code
                 // script.onload = function(e) {
                 //     // Initialize the Google API Client with the config object
