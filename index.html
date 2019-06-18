@@ -100,8 +100,7 @@
                 // Once the Google API Client is loaded, you can run your code
                 script.onload = function(e) {
                     // Initialize the Google API Client with the config object
-                    gapi.client
-                        .init({
+                    gapi.client.init({
                             apiKey: firebaseConfig.apiKey,
                             clientId: firebaseConfig.clientID,
                             discoveryDocs: firebaseConfig.discoveryDocs,
@@ -142,6 +141,8 @@
                     console.log(response);
                 });
         }
+
+        // load calendar
     </script>
 
 </body>
