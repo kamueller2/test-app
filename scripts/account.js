@@ -6,6 +6,7 @@ var firebaseConfig = {
     storageBucket: "project-1-b691a.appspot.com",
     messagingSenderId: "904494310957",
     appId: "1:904494310957:web:f844b97c354d9a11",
+
     clientId: "904494310957-snk9h5ndi37tl0h4emhho96llkpm10v7.apps.googleusercontent.com",
 
     scopes: ["email", "profile",
@@ -91,13 +92,13 @@ function redirectIn(user) {
     <input type="search" id="siteSearch" placeholder="Search event by name or date">
     <div id="container-for-content">
     
-    </div>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/6.2.0/firebase-app.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/6.2.0/firebase-database.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/6.2.0/firebase-auth.js"></script>
-    <script src="../scripts/inner.js"></script>
-    `);
+    </div>` <
+        script src = "https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" > < /script> <
+        script src = "https://www.gstatic.com/firebasejs/6.2.0/firebase-app.js" > < /script> <
+        script src = "https://www.gstatic.com/firebasejs/6.2.0/firebase-database.js" > < /script> <
+        script src = "https://www.gstatic.com/firebasejs/6.2.0/firebase-auth.js" > < /script> <
+        script src = "../scripts/inner.js" > < /script>
+    );
 }
 
 
@@ -148,8 +149,7 @@ firebase.auth().onAuthStateChanged(function(user) {
         // Once the Google API Client is loaded, you can run your code
         script.onload = function(e) {
             // Initialize the Google API Client with the config object
-            gapi.client
-                .init({
+            gapi.client.init({
                     apiKey: firebaseConfig.apiKey,
                     clientId: firebaseConfig.clientID,
                     discoveryDocs: firebaseConfig.discoveryDocs,
