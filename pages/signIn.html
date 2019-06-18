@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Dear Time</title>
+    <link href="https://cdn.jsdelivr.net/npm/pretty-checkbox@3.0/dist/pretty-checkbox.min.css" rel="stylesheet"> </link>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.2/animate.min.css"></link>
+    <link href="../assets/style.css" rel="stylesheet"></link>
+</head>
+
+<body>
+
+    <img src="../assets/images/logo.png" id="logo">
+    <div id="allTheSignIn">
+        <div class="background"></div>
+        <h2 class="animated slideInUp fast">Welcome Back : )</h2>
+
+        <input type="email" class="animated fadeIn slow" id="email" placeholder="Your Email">
+        <input type="password" class="animated fadeIn slow" id="password" placeholder="password">
+        <p class="signUp">Don't have account? <a href="signUp.html"> Sign up</a></p>
+
+        <!-- This is where you sync the Google Doc -->
+        <button class="calendars" id="signIn">sign in</button>
+        <!-- After users sync the calendar, button Ready to go shows up -->
+        <!-- <button id="signUp">Ready to Go!</button> -->
+
+        </section>
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/6.2.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/6.2.0/firebase-database.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/6.2.0/firebase-auth.js"></script>
+    <script src="../scripts/account.js"></script>
+
+</body>
+
+</html>
