@@ -57,7 +57,9 @@
 
         const ui = new firebaseui.auth.AuthUI(firebase.auth());
 
-
+        function handleClientLoad() {
+            gapi.load('client:auth2', initClient);
+        }
         var uiConfig = {
             callbacks: {
                 signInSuccessWithAuthResult: function(authResult, redirectUrl) {
