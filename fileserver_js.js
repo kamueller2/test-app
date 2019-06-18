@@ -1,4 +1,4 @@
-var http = require("http");
+var http = require("https");
 var fs = require("fs");
 var path = require("path");
 
@@ -11,6 +11,8 @@ http.createServer(function(req, res) {
             res.writeHead(200, { "Content-Type": "text/html" });
             res.end(html);
         });
+
+    } else if (req.url.match(/.html$/)) {
 
     } else if (req.url.match(/.css$/)) {
 
@@ -35,7 +37,7 @@ http.createServer(function(req, res) {
         res.end("404 File Not Found");
     }
 
-}).listen(3000);
+}).listen(8080);
 
 
-console.log("File server running on port 3000");
+console.log("File server running on port 8080");
