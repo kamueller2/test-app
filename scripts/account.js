@@ -92,13 +92,13 @@ function redirectIn(user) {
     <input type="search" id="siteSearch" placeholder="Search event by name or date">
     <div id="container-for-content">
     
-    </div>` <
-        script src = "https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" > < /script> <
-        script src = "https://www.gstatic.com/firebasejs/6.2.0/firebase-app.js" > < /script> <
-        script src = "https://www.gstatic.com/firebasejs/6.2.0/firebase-database.js" > < /script> <
-        script src = "https://www.gstatic.com/firebasejs/6.2.0/firebase-auth.js" > < /script> <
-        script src = "../scripts/inner.js" > < /script>
-    );
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/6.2.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/6.2.0/firebase-database.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/6.2.0/firebase-auth.js"></script>
+    <script src="../scripts/inner.js"></script>
+    `);
 }
 
 
@@ -149,7 +149,8 @@ firebase.auth().onAuthStateChanged(function(user) {
         // Once the Google API Client is loaded, you can run your code
         script.onload = function(e) {
             // Initialize the Google API Client with the config object
-            gapi.client.init({
+            gapi.client
+                .init({
                     apiKey: firebaseConfig.apiKey,
                     clientId: firebaseConfig.clientID,
                     discoveryDocs: firebaseConfig.discoveryDocs,
