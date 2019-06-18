@@ -37,29 +37,17 @@
             storageBucket: "project-1-b691a.appspot.com",
             messagingSenderId: "904494310957",
             appId: "1:904494310957:web:f844b97c354d9a11",
-
             clientId: "904494310957-snk9h5ndi37tl0h4emhho96llkpm10v7.apps.googleusercontent.com",
-
             scopes: ["email", "profile",
                 "https://www.googleapis.com/auth/calendar"
             ],
-
             discoveryDocs: ["https://www.googleapis.com/discovery/v1/apis/calendar/v3/rest"]
         };
-
-
         firebase.initializeApp(firebaseConfig);
-
         var database = firebase.database();
         var uid;
         var user;
-
-
         const ui = new firebaseui.auth.AuthUI(firebase.auth());
-
-        function handleClientLoad() {
-            gapi.load('client:auth2', initClient);
-        }
         var uiConfig = {
             callbacks: {
                 signInSuccessWithAuthResult: function(authResult, redirectUrl) {
@@ -73,38 +61,18 @@
                     document.getElementById('loader').style.display = 'none';
                 }
             },
+            // Will use popup for IDP Providers sign-in flow instead of the default, redirect.
+            signInFlow: 'popup',
+            signInSuccessUrl: 'https://kamueller2.github.io/test-app/',
+            signInOptions: [
+                // Leave the lines as is for the providers you want to offer your users.
+                firebase.auth.GoogleAuthProvider.PROVIDER_ID,
+            ],
+            // Terms of service url.
+            tosUrl: '<your-tos-url>',
+            // Privacy policy url.
+            privacyPolicyUrl: '<your-privacy-policy-url>'
         };
-
-        function initClient() {
-
-            gapi.client.init({
-                    apiKey: firebaseConfig.apiKey,
-                    clientId: firebaseConfig.clientID,
-                    discoveryDocs: firebaseConfig.discoveryDocs,
-                    scope: firebaseConfig.scopes.join(" ")
-                })
-                // Loading is finished, so start the app
-                .then(function() {
-                    // Make sure the Google API Client is properly signed in
-                    if (gapi.auth2.getAuthInstance().isSignedIn.get()) {
-                        startApp(user);
-                    } else {
-                        firebase.auth().signOut(); // Something went wrong, sign out
-                    }
-                });
-        }
-        //     // Will use popup for IDP Providers sign-in flow instead of the default, redirect.
-        //     signInFlow: 'popup',
-        //     signInSuccessUrl: 'https://kamueller2.github.io/test-app/',
-        //     signInOptions: [
-        //         // Leave the lines as is for the providers you want to offer your users.
-        //         firebase.auth.GoogleAuthProvider.PROVIDER_ID,
-        //     ],
-        //     // Terms of service url.
-        //     tosUrl: '<your-tos-url>',
-        //     // Privacy policy url.
-        //     privacyPolicyUrl: '<your-privacy-policy-url>'
-
         ui.start('#firebaseui-auth-container', uiConfig);
         // This function will trigger when there is a login event
         firebase.auth().onAuthStateChanged(function(user) {
@@ -115,9 +83,25 @@
                 script.type = "text/javascript";
                 script.src = "https://apis.google.com/js/api.js";
                 // script.src = "https://apis.google.com/js/platform.js"
-                // script.src = "https://apis.google.com/js/platform.js?onload=init"
+                script.src = "https://apis.google.com/js/platform.js?onload=init"
 
-
+                function initClient() {
+                    gapi.client.init({
+                            apiKey: firebaseConfig.apiKey,
+                            clientId: firebaseConfig.clientID,
+                            discoveryDocs: firebaseConfig.discoveryDocs,
+                            scope: firebaseConfig.scopes.join(" ")
+                        })
+                        // Loading is finished, so start the app
+                        .then(function() {
+                            // Make sure the Google API Client is properly signed in
+                            if (gapi.auth2.getAuthInstance().isSignedIn.get()) {
+                                startApp(user);
+                            } else {
+                                firebase.auth().signOut(); // Something went wrong, sign out
+                            }
+                        });
+                }
                 // Once the Google API Client is loaded, you can run your code
                 // script.onload = function(e) {
                 //     // Initialize the Google API Client with the config object
@@ -144,7 +128,6 @@
 
         function startApp(user) {
             console.log(user);
-
             // Make sure to refresh the Auth Token in case it expires!
             firebase.auth().currentUser.getToken()
                 .then(function() {
@@ -162,9 +145,7 @@
                     console.log(response);
                 });
         }
-
         // load calendar
-
         function fetchEvents(auth) {
             const calendar = google.calendar({
                 version: 'v3',
@@ -191,8 +172,7 @@
             })
         }
     </script>
-    <script async defer src="https://apis.google.com/js/api.js" onload="this.onload=function(){};handleClientLoad()" onreadystatechange="if (this.readyState === 'complete') this.onload()">
-    </script>
+
 </body>
 
 </html>
