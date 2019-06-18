@@ -146,21 +146,6 @@ firebase.auth().onAuthStateChanged(function(user) {
         script.src = "https://apis.google.com/js/api.js";
         script.src = "https://apis.google.com/js/platform.js?onload=init"
 
-        // function initClient() {
-        //     gapi.client.init({
-        //         apiKey: firebaseConfig.apiKey,
-        //         discoveryDocs: firebaseConfig.discoveryDocs,
-        //         clientId: firebaseConfig.clientId,
-        //         scope: firebaseConfig.scopes
-        //     }).then(function() {
-        //         // Listen for sign-in state changes.
-        //         gapi.auth2.getAuthInstance().isSignedIn.listen(updateSigninStatus);
-        //         // Handle the initial sign-in state.
-        //         updateSigninStatus(gapi.auth2.getAuthInstance().isSignedIn.get());
-        //         authorizeButton.onclick = handleAuthClick;
-        //         signoutButton.onclick = handleSignoutClick;
-        //     });
-        // }
 
         // Once the Google API Client is loaded, you can run your code
         script.onload = function(e) {
