@@ -6,7 +6,7 @@ var firebaseConfig = {
     storageBucket: "project-1-b691a.appspot.com",
     messagingSenderId: "904494310957",
     appId: "1:904494310957:web:f844b97c354d9a11",
-    clientId: "904494310957-oklsneorfb6ooh4sc8t21rpnho5hir03.apps.googleusercontent.com",
+    clientId: "904494310957-snk9h5ndi37tl0h4emhho96llkpm10v7.apps.googleusercontent.com",
 
     scopes: ["email", "profile",
         "https://www.googleapis.com/auth/calendar"
@@ -124,7 +124,7 @@ var uiConfig = {
     },
     // Will use popup for IDP Providers sign-in flow instead of the default, redirect.
     signInFlow: 'popup',
-    signInSuccessUrl: '<url-to-redirect-to-on-success>',
+    signInSuccessUrl: 'https://kamueller2.github.io/test-app',
     signInOptions: [
         // Leave the lines as is for the providers you want to offer your users.
         firebase.auth.GoogleAuthProvider.PROVIDER_ID,
