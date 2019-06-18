@@ -76,7 +76,7 @@
         // };
         ui.start('#firebaseui-auth-container', initClient);
         // This function will trigger when there is a login event
-        firebase.auth().getAuthInstance().isSignedIn.listen(updateSigninStatus);
+        ui.auth().getAuthInstance().isSignedIn.listen(updateSigninStatus);
         // firebase.auth().onAuthStateChanged(function(user) {
         // console.log(user)
         // Make sure there is a valid user object
