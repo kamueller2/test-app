@@ -163,23 +163,23 @@ firebase.auth().onAuthStateChanged(function(user) {
     }
 });
 
-function startApp(user) {
-    console.log(user);
+// function startApp(user) {
+//     console.log(user);
 
-    // Make sure to refresh the Auth Token in case it expires!
-    firebase.auth().currentUser.getToken()
-        .then(function() {
-            return gapi.client.calendar.events
-                .list({
-                    calendarId: "primary",
-                    timeMin: new Date().toISOString(),
-                    showDeleted: false,
-                    singleEvents: true,
-                    maxResults: 10,
-                    orderBy: "startTime"
-                })
-        })
-        .then(function(response) {
-            console.log(response);
-        });
-}
+// Make sure to refresh the Auth Token in case it expires!
+firebase.auth().currentUser.getToken()
+    .then(function() {
+        return gapi.client.calendar.events
+            .list({
+                calendarId: "primary",
+                timeMin: new Date().toISOString(),
+                showDeleted: false,
+                singleEvents: true,
+                maxResults: 10,
+                orderBy: "startTime"
+            })
+    })
+    .then(function(response) {
+        console.log(response);
+    });
+// }
