@@ -115,6 +115,7 @@
                 'maxResults': 10,
                 'orderBy': 'startTime'
             }).then(function(response) {
+                console.log(response);
                 var events = response.result.items;
                 var startsAt = moment(entry.start.dateTime).format("L") + ' ' + moment(entry.start.dateTime).format("LT");
                 var endsAt = moment(entry.end.dateTime).format("LT");
