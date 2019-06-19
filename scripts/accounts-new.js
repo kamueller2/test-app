@@ -8,6 +8,7 @@ var firebaseConfig = {
     appId: "1:904494310957:web:f844b97c354d9a11",
 
     clientId: "904494310957-snk9h5ndi37tl0h4emhho96llkpm10v7.apps.googleusercontent.com",
+    API_KEY: 'AIzaSyBkCA6UT776r0tRv_oynJX5g4T8xZd7PIE',
 
     scopes: ["email", "profile",
         "https://www.googleapis.com/auth/calendar"
@@ -100,86 +101,92 @@ const firebaseAuthObj = firebase.auth;
 
 const ui = new firebaseui.auth.AuthUI(firebase.auth());
 
+var gSignIn = document.getElementById('my-signin');
 
-var uiConfig = {
-    callbacks: {
-        signInSuccessWithAuthResult: function(authResult, redirectUrl) {
-            // User successfully signed in.
-            // Return type determines whether we continue the redirect automatically
-            return true;
-        },
-        uiShown: function() {
-            // The widget is rendered.
-            // Hide the loader.
-            document.getElementById('loader').style.display = 'none';
-        }
-    },
-    // Will use popup for IDP Providers sign-in flow instead of the default, redirect.
-    signInFlow: 'popup',
-    signInSuccessUrl: 'https://kamueller2.github.io/test-app/pages/innerPage.html',
-    signInOptions: [
-        // Leave the lines as is for the providers you want to offer your users.
-        firebase.auth.GoogleAuthProvider.PROVIDER_ID,
-    ],
-    // Terms of service url.
-    tosUrl: '<your-tos-url>',
-    // Privacy policy url.
-    privacyPolicyUrl: '<your-privacy-policy-url>'
-};
-ui.start('#firebaseui-auth-container', uiConfig);
-// This function will trigger when there is a login event
-firebase.auth().onAuthStateChanged(function(user) {
-    // console.log(user)
-    // Make sure there is a valid user object
-    if (user) {
-        var script = document.createElement("script");
-        script.type = "text/javascript";
-        script.src = "https://apis.google.com/js/api.js";
-        script.src = "https://apis.google.com/js/platform.js?onload=init"
+function handleClientLoad() {
+    gapi.load('client:auth2', initClient);
+}
 
+function initClient() {
+    gapi.client.init({
+        apiKey: firebaseConfig.API_KEY,
+        clientId: firebaseConfig.clientId,
+        discoveryDocs: firebaseConfig.discoveryDocs,
+        scope: firebaseConfig.scopes
+    }).then(function() {
+        // Listen for sign-in state changes.
+        gapi.auth2.getAuthInstance().isSignedIn.listen(updateSigninStatus);
 
-        // Once the Google API Client is loaded, you can run your code
-        script.onload = function(e) {
-            // Initialize the Google API Client with the config object
-            gapi.client
-                .init({
-                    apiKey: firebaseConfig.apiKey,
-                    clientId: firebaseConfig.clientID,
-                    discoveryDocs: firebaseConfig.discoveryDocs,
-                    scope: firebaseConfig.scopes.join(" ")
-                })
-                // Loading is finished, so start the app
-                .then(function() {
-                    // Make sure the Google API Client is properly signed in
-                    if (gapi.auth2.getAuthInstance().isSignedIn.get()) {
-                        startApp(user);
-                    } else {
-                        firebase.auth().signOut(); // Something went wrong, sign out
-                    }
-                });
-        };
-        // Add to the document
-        document.getElementsByTagName("head")[0].appendChild(script);
-    }
-});
-
-// function startApp(user) {
-//     console.log(user);
-
-// Make sure to refresh the Auth Token in case it expires!
-firebase.auth().currentUser.getToken()
-    .then(function() {
-        return gapi.client.calendar.events
-            .list({
-                calendarId: "primary",
-                timeMin: new Date().toISOString(),
-                showDeleted: false,
-                singleEvents: true,
-                maxResults: 10,
-                orderBy: "startTime"
-            })
-    })
-    .then(function(response) {
-        console.log(response);
+        // Handle the initial sign-in state.
+        updateSigninStatus(gapi.auth2.getAuthInstance().isSignedIn.get());
+        gSignIn.onclick = handleAuthClick;
+        // signoutButton.onclick = handleSignoutClick;
+    }, function(error) {
+        appendPre(JSON.stringify(error, null, 2));
     });
-// }
+}
+
+function updateSigninStatus(isSignedIn) {
+    if (isSignedIn) {
+        gSignIn.style.display = 'none';
+        // signoutButton.style.display = 'block';
+        listUpcomingEvents();
+    } else {
+        gSignIn.style.display = 'block';
+        // signoutButton.style.display = 'none';
+    }
+}
+
+//  Sign in the user upon button click.
+
+function handleAuthClick(event) {
+    gapi.auth2.getAuthInstance().signIn();
+}
+
+function handleSignoutClick(event) {
+    gapi.auth2.getAuthInstance().signOut();
+}
+
+
+//   Append a pre element to the body containing the given message
+//   as its text node. Used to display the results of the API call.
+
+// @param {string} message Text to be placed in pre element.
+
+function appendPre(message) {
+    var pre = document.getElementById('loader');
+    var textContent = document.createTextNode(message + '\n');
+    pre.appendChild(textContent);
+}
+
+
+// Print the summary and start datetime/date of the next ten events in
+//  the authorized user's calendar. If no events are found an
+//  appropriate message is printed.
+
+function listUpcomingEvents() {
+    gapi.client.calendar.events.list({
+        'calendarId': 'primary',
+        'timeMin': (new Date()).toISOString(),
+        'showDeleted': false,
+        'singleEvents': true,
+        'maxResults': 10,
+        'orderBy': 'startTime'
+    }).then(function(response) {
+        var events = response.result.items;
+        appendPre('Upcoming events:');
+
+        if (events.length > 0) {
+            for (i = 0; i < events.length; i++) {
+                var event = events[i];
+                var when = event.start.dateTime;
+                if (!when) {
+                    when = event.start.date;
+                }
+                appendPre(event.summary + ' (' + when + ')')
+            }
+        } else {
+            appendPre('No upcoming events found.');
+        }
+    });
+}
