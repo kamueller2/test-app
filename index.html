@@ -25,7 +25,7 @@
 
         // Authorization scopes required by the API; multiple scopes can be
         // included, separated by spaces.
-        var SCOPES = "https://www.googleapis.com/auth/calendar/events";
+        var SCOPES = "https://www.googleapis.com/auth/calendar";
 
         var authorizeButton = document.getElementById('authorize_button');
         var signoutButton = document.getElementById('signout_button');
@@ -107,13 +107,15 @@
          * appropriate message is printed.
          */
         function listUpcomingEvents() {
-            gapi.client.calendar.events.list({
+            gapi.client.calendar.events.insert({
+
                 'calendarId': 'primary',
                 'timeMin': (new Date()).toISOString(),
                 'showDeleted': false,
                 'singleEvents': true,
                 'maxResults': 10,
-                'orderBy': 'startTime'
+                'orderBy': 'startTime',
+                "resource": resource
             }).then(function(response) {
                 var events = response.result.items;
                 appendPre('Upcoming events:');
@@ -130,6 +132,29 @@
                 } else {
                     appendPre('No upcoming events found.');
                 }
+            });
+        }
+
+        function makeApiCall() {
+            var eventResponse = document.getElementById('event-response');
+
+            gapi.client.load('calendar', 'v3', function() { // load the calendar api (version 3)
+                var request = gapi.client.calendar.events.insert({
+                    'calendarId': '24tn4fht2tr6m86efddfgdfdk@group.calendar.google.com', // calendar ID
+                    "resource": resource // pass event details with api call
+                });
+
+                // handle the response from our api call
+                request.execute(function(resp) {
+                    if (resp.status == 'confirmed') {
+                        eventResponse.innerHTML = "Event created successfully. View it <a href='" + resp.htmlLink + "'>online here</a>.";
+                        eventResponse.className += ' panel-success';
+                        refreshICalendarframe();
+                    } else {
+                        document.getElementById('event-response').innerHTML = "There was a problem. Reload page and try again.";
+                        eventResponse.className += ' panel-danger';
+                    }
+                });
             });
         }
     </script>
