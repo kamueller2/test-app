@@ -110,6 +110,7 @@
             return gapi.client.calendar.events.list({
                 'calendarId': 'primary',
                 'timeMin': (new Date()).toISOString(),
+                'timeZone': userTimeZone,
                 'showDeleted': false,
                 'singleEvents': true,
                 'maxResults': 10,
@@ -121,9 +122,9 @@
                 if (events.length > 0) {
                     for (i = 0; i < events.length; i++) {
                         var event = events[i];
-                        var when = event.start.dateTime;
+                        var when = moment(event.date).format("L") + ' ' + moment(event.date).format("LT");
                         if (!when) {
-                            when = event.start.date;
+                            when = moment(event.date).format("L") + ' ' + moment(event.date).format("LT");
                         }
                         appendPre(event.summary + ' (' + when + ')' + ' ' + event.location + ' ')
                             // event.location
@@ -143,8 +144,8 @@
         // moment.js
         //      console.log(response);
         //         var events = response.result.items;
-        //         var startsAt = moment(entry.start.dateTime).format("L") + ' ' + moment(entry.start.dateTime).format("LT");
-        //         var endsAt = moment(entry.end.dateTime).format("LT");
+        //         var startsAt = moment(event.date).format("L") + ' ' + moment(event.date).format("LT");
+        //         var endsAt = moment(event.expires).format("LT");
         //         appendPre('Upcoming events:');
         //         if (events.length > 0) {
         //             for (i = 0; i < events.length; i++) {
