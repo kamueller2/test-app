@@ -78,9 +78,9 @@
         function initClient() {
             gapi.client.init({
                 apiKey: firebaseConfig.API_KEY,
-                clientId: firebaseConfig.CLIENT_ID,
-                discoveryDocs: firebaseConfig.DISCOVERY_DOCS,
-                scope: firebaseConfig.SCOPES
+                clientId: firebaseConfig.clientId,
+                discoveryDocs: firebaseConfig.discoveryDocs,
+                scope: firebaseConfig.scopes
             }).then(function() {
                 // Listen for sign-in state changes.
                 gapi.auth2.getAuthInstance().isSignedIn.listen(updateSigninStatus);
