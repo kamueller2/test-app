@@ -110,6 +110,7 @@
                 'maxResults': 10,
                 'orderBy': 'startTime'
             }).then(function(response) {
+                console.log(response);
                 var events = response.result.items;
                 appendPre('Upcoming events:');
                 if (events.length > 0) {

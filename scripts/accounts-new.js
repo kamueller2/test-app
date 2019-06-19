@@ -109,7 +109,7 @@ function handleClientLoad() {
 
 function initClient() {
     gapi.client.init({
-        apiKey: firebaseConfig.API_KEY,
+        apiKey: firebaseConfig.apiKey,
         clientId: firebaseConfig.clientId,
         discoveryDocs: firebaseConfig.discoveryDocs,
         scope: firebaseConfig.scopes
