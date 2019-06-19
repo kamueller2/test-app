@@ -106,7 +106,6 @@ var uiConfig = {
         signInSuccessWithAuthResult: function(authResult, redirectUrl) {
             // User successfully signed in.
             // Return type determines whether we continue the redirect automatically
-            // or whether we leave that to developer to handle.
             return true;
         },
         uiShown: function() {
@@ -117,7 +116,7 @@ var uiConfig = {
     },
     // Will use popup for IDP Providers sign-in flow instead of the default, redirect.
     signInFlow: 'popup',
-    signInSuccessUrl: 'https://kamueller2.github.io/test-app/pages/signUpH.html',
+    signInSuccessUrl: 'https://kamueller2.github.io/test-app/pages/innerPage.html',
     signInOptions: [
         // Leave the lines as is for the providers you want to offer your users.
         firebase.auth.GoogleAuthProvider.PROVIDER_ID,
