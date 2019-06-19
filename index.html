@@ -20,8 +20,6 @@
     <button id="signout_button" style="display: none;">Sign Out</button>
 
 
-
-
     <pre id="content" style="white-space: pre-wrap;"></pre>
 
     <script type="text/javascript">
@@ -129,39 +127,6 @@
                 }
             });
         }
-        /*
-         * Google API
-         * */
-        function onGapiLoad() {
-            // Enable the api you want to use in the developer console
-            // https://console.developers.google.com/apis/library/
-            function fetchData() {
-                authenticateGoogleAPI()
-                    .then(() => {
-                        return gapi.client.request({
-                            // Pick an endpoint based on the scope and api you defined.
-                            path: 'https://www.googleapis.com/calendar/v3/calendars/primary/events',
-                            method: 'GET'
-                        })
-                    })
-                    .then(result => {
-                        fetchResponse.innerText = result.body
-                    })
-            }
-            gapi.client.init({
-                'apiKey': 'AIzaSyBkCA6UT776r0tRv_oynJX5g4T8xZd7PIE',
-                // clientId and scope are optional if auth is not required.
-                'clientId': '904494310957-snk9h5ndi37tl0h4emhho96llkpm10v7.apps.googleusercontent.com',
-                'scope': 'https://www.googleapis.com/discovery/v1/apis/calendar/v3/rest',
-
-            }).then(function() {
-                // 3. Initialize and add an onClick handler to make the API request.
-                console.log('google api initialized')
-                fetchButton.addEventListener('click', fetchData)
-            });
-        }
-        // 1. Load the JavaScript client library.
-        gapi.load('client', onGapiLoad);
     </script>
 
     <script async defer src="https://apis.google.com/js/api.js" onload="this.onload=function(){};handleClientLoad()" onreadystatechange="if (this.readyState === 'complete') this.onload()">
