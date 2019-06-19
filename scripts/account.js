@@ -114,7 +114,6 @@ var uiConfig = {
         signInSuccessWithAuthResult: function(authResult, redirectUrl) {
             // User successfully signed in.
             // Return type determines whether we continue the redirect automatically
-            // or whether we leave that to developer to handle.
             return true;
         },
         uiShown: function() {
@@ -148,10 +147,11 @@ firebase.auth().onAuthStateChanged(function(user) {
 
 
         // Once the Google API Client is loaded, you can run your code
-        script.onload = function(e) {
-            // Initialize the Google API Client with the config object
-            gapi.client
-                .init({
+        // script.onload = function(e) {
+        // Initialize the Google API Client with the config object
+        function initClient() {
+
+            gapi.client.init({
                     apiKey: firebaseConfig.apiKey,
                     clientId: firebaseConfig.clientID,
                     discoveryDocs: firebaseConfig.discoveryDocs,
@@ -166,7 +166,8 @@ firebase.auth().onAuthStateChanged(function(user) {
                         firebase.auth().signOut(); // Something went wrong, sign out
                     }
                 });
-        };
+        }
+        // };
         // Add to the document
         document.getElementsByTagName("head")[0].appendChild(script);
     }
