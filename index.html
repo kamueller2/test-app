@@ -14,16 +14,17 @@
 <body>
     <!-- google login -->
 
-    <!-- <section>
+    <section>
         <div id="firebaseui-auth-container">
+            <button class="g-signin2" data-onsuccess="onSignIn" id="authorize_button" style="display: none;">Authorize</button>
+            <button id="signout_button" style="display: none;">Sign Out</button>
             <div id="my-signin2"></div>
             <div id="loader"></div>
         </div>
-    </section> -->
+    </section>
 
     <!--Add buttons to initiate auth sequence and sign out-->
-    <button class="g-signin2" data-onsuccess="onSignIn" id="authorize_button" style="display: none;">Authorize</button>
-    <button id="signout_button" style="display: none;">Sign Out</button>
+
 
     <pre id="content" style="white-space: pre-wrap;"></pre>
 
