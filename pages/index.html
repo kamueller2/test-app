@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en" itemscope itemtype="http://schema.org/Article">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+
+    <script src="https://apis.google.com/js/client:platform.js?onload=start" async defer>
+    </script>
+
+
+    <script src="https://cdn.firebase.com/libs/firebaseui/3.5.2/firebaseui.js"></script>
+    <link type="text/css" rel="stylesheet" href="https://cdn.firebase.com/libs/firebaseui/3.5.2/firebaseui.css" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/6.2.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/6.2.0/firebase-database.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/6.2.0/firebase-auth.js"></script>
+
+    <script>
+        function start() {
+            gapi.load('auth2', function() {
+                auth2 = gapi.auth2.init({
+                    client_id: "904494310957-snk9h5ndi37tl0h4emhho96llkpm10v7.apps.googleusercontent.com",
+                });
+            });
+        }
+    </script>
+</head>
+
+<body>
+    <!-- google login -->
+
+    <section>
+        <div id="firebaseui-auth-container">
+            <div id="my-signin2"></div>
+            <div id="loader"></div>
+        </div>
+    </section>
+
+    <script>
+        var provider = new firebase.auth.GoogleAuthProvider();
+        var firebaseConfig = {
+            apiKey: "AIzaSyBN7LY1mgo8xNyiqviHoMbxTnrT4whKLXM",
+            authDomain: "project-1-b691a.firebaseapp.com",
+            databaseURL: "https://project-1-b691a.firebaseio.com",
+            projectId: "project-1-b691a",
+            storageBucket: "project-1-b691a.appspot.com",
+            messagingSenderId: "904494310957",
+            appId: "1:904494310957:web:f844b97c354d9a11",
+            clientId: "904494310957-snk9h5ndi37tl0h4emhho96llkpm10v7.apps.googleusercontent.com",
+            api_key: 'AIzaSyBkCA6UT776r0tRv_oynJX5g4T8xZd7PIE',
+            scopes: ["email", "profile",
+                "https://www.googleapis.com/auth/calendar"
+            ],
+            discoveryDocs: ["https://www.googleapis.com/discovery/v1/apis/calendar/v3/rest"]
+        };
+        firebase.initializeApp(firebaseConfig);
+        var database = firebase.database();
+        var uid;
+        var user;
+        const ui = new firebaseui.auth.AuthUI(firebase.auth());
+        // var uiConfig = {
+        //     callbacks: {
+        //         signInSuccessWithAuthResult: function(authResult, redirectUrl) {
+        //             // User successfully signed in.
+        //             // Return type determines whether we continue the redirect automatically
+        //             return true;
+        //         },
+        //         uiShown: function() {
+        //             // The widget is rendered.
+        //             // Hide the loader.
+        //             document.getElementById('loader').style.display = 'none';
+        //         }
+        //     },
+        // // Will use popup for IDP Providers sign-in flow instead of the default, redirect.
+        // signInFlow: 'popup',
+        // signInSuccessUrl: 'https://kamueller2.github.io/test-app/',
+        // signInOptions: [
+        //     // Leave the lines as is for the providers you want to offer your users.
+        //     firebase.auth.GoogleAuthProvider.PROVIDER_ID,
+        // ],
+        // // Terms of service url.
+        // tosUrl: '<your-tos-url>',
+        // // Privacy policy url.
+        // privacyPolicyUrl: '<your-privacy-policy-url>'
+        // };
+        ui.start('#firebaseui-auth-container', initClient);
+        // This function will trigger when there is a login event
+        ui.auth().getAuthInstance().isSignedIn.listen(updateSigninStatus);
+        // firebase.auth().onAuthStateChanged(function(user) {
+        // console.log(user)
+        // Make sure there is a valid user object
+        // if (user) {
+        //     var script = document.createElement("script");
+        //     script.type = "text/javascript";
+        //     script.src = "https://apis.google.com/js/api.js";
+        //     // script.src = "https://apis.google.com/js/platform.js"
+        //     script.src = "https://apis.google.com/js/platform.js?onload=init"
+
+        function initClient() {
+            firebase.auth().gapi.client.init({
+                    apiKey: firebaseConfig.api_key,
+                    clientId: firebaseConfig.clientID,
+                    discoveryDocs: firebaseConfig.discoveryDocs,
+                    scope: firebaseConfig.scopes.join(" ")
+                })
+                // Loading is finished, so start the app
+                .then(function() {
+                    // Make sure the Google API Client is properly signed in
+                    if (gapi.auth2.getAuthInstance().isSignedIn.get()) {
+                        startApp(user);
+                    } else {
+                        firebase.auth().signOut(); // Something went wrong, sign out
+                    }
+                });
+        }
+        // Once the Google API Client is loaded, you can run your code
+        // script.onload = function(e) {
+        //     // Initialize the Google API Client with the config object
+        //     gapi.client.init({
+        //             apiKey: firebaseConfig.apiKey,
+        //             clientId: firebaseConfig.clientID,
+        //             discoveryDocs: firebaseConfig.discoveryDocs,
+        //             scope: firebaseConfig.scopes.join(" ")
+        //         })
+        //         // Loading is finished, so start the app
+        //         .then(function() {
+        //             // Make sure the Google API Client is properly signed in
+        //             if (gapi.auth2.getAuthInstance().isSignedIn.get()) {
+        //                 startApp(user);
+        //             } else {
+        //                 firebase.auth().signOut(); // Something went wrong, sign out
+        //             }
+        //         });
+        // };
+        // Add to the document
+        document.getElementsByTagName("head")[0].appendChild(script);
+
+        function startApp(user) {
+            console.log(user);
+            // Make sure to refresh the Auth Token in case it expires!
+            firebase.auth().currentUser.getToken()
+                .then(function() {
+                    return gapi.client.calendar.events
+                        .list({
+                            calendarId: "primary",
+                            timeMin: new Date().toISOString(),
+                            showDeleted: false,
+                            singleEvents: true,
+                            maxResults: 10,
+                            orderBy: "startTime"
+                        })
+                })
+                .then(function(response) {
+                    console.log(response);
+                });
+        }
+        // load calendar
+        function fetchEvents(auth) {
+            const calendar = google.calendar({
+                version: 'v3',
+                auth
+            })
+            calendar.events.list({
+                calendarId: 'primary',
+                timeMin: (new Date()).toISOString(),
+                maxResults: 10,
+                singleEvents: true,
+                orderBy: 'startTime',
+            }, (err, res) => {
+                if (err) return console.log('The API returned an error: ' + err);
+                const events = res.data.items;
+                if (events.length) {
+                    console.log('Upcoming 10 events:');
+                    events.map((event, i) => {
+                        const start = event.start.dateTime || event.start.date;
+                        console.log(`${start} - ${event.summary}`);
+                    });
+                } else {
+                    console.log('No upcoming events found.');
+                }
+            })
+        }
+    </script>
+
+</body>
+
+</html>
