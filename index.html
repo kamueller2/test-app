@@ -122,12 +122,12 @@
                 if (events.length > 0) {
                     for (i = 0; i < events.length; i++) {
                         var event = events[i];
-                        var when = moment(event.date).format("L") + ' ' + moment(event.date).format("LT");
+                        var when = moment(event.start.dateTime).format("L") + ' ' + moment(event.start.dateTime).format("LT");
                         if (!when) {
-                            when = moment(event.date).format("L") + ' ' + moment(event.date).format("LT");
+                            when = moment(event.start.dateTime).format("L") + ' ' + moment(event.start.dateTime).format("LT");
                         }
-                        appendPre(event.summary + ' ' + when + ' ' + event.location + ' ');
-                        // event.location
+                        appendPre(event.summary + ' (' + when + ')' + ' ' + event.location + ' ')
+                            // event.location
                     }
                 } else {
                     appendPre('No upcoming events found.');
