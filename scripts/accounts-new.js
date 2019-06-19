@@ -154,7 +154,7 @@ function handleSignoutClick(event) {
 // @param {string} message Text to be placed in pre element.
 
 function appendPre(message) {
-    var pre = document.getElementById('loader');
+    var pre = document.getElementById('firebaseui-auth-container');
     var textContent = document.createTextNode(message + '\n');
     pre.appendChild(textContent);
 }
