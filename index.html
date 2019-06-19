@@ -126,8 +126,8 @@
                         if (!when) {
                             when = moment(event.date).format("L") + ' ' + moment(event.date).format("LT");
                         }
-                        appendPre(event.summary + ' (' + when + ')' + ' ' + event.location + ' ')
-                            // event.location
+                        appendPre(event.summary + ' ' + when + ' ' + event.location + ' ');
+                        // event.location
                     }
                 } else {
                     appendPre('No upcoming events found.');
