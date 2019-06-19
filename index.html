@@ -110,7 +110,7 @@
             return gapi.client.calendar.events.list({
                 'calendarId': 'primary',
                 'timeMin': (new Date()).toISOString(),
-                'timeZone': userTimeZone,
+                // 'timeZone': userTimeZone,
                 'showDeleted': false,
                 'singleEvents': true,
                 'maxResults': 10,
