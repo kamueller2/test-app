@@ -11,7 +11,8 @@ var firebaseConfig = {
 firebase.initializeApp(firebaseConfig);
 
 const messaging = firebase.messaging();
-messaging.requestPermission()
+database = firebase.database(),
+    messaging.requestPermission()
     .then(function() {
         console.log('Have permission');
 
